@@ -6,7 +6,8 @@
   "description": "window-nail",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build && electron-builder",
+    "build": "vue-tsc && vite build && electron-builder --publish never",
+    "publish": "vue-tsc && vite build && electron-builder --publish always",
     "preview": "vite preview",
     "postinstall": "electron-builder install-app-deps"
   },

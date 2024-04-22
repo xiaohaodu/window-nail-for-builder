@@ -3,16 +3,20 @@
  */
 {
   $schema: "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  appId: "appId",
   asar: true,
   productName: "window-nail",
   nodeGypRebuild: true,
   npmRebuild: true,
+  publish: {
+    provider: "github",
+    releaseType: "release",
+  },
   directories: {
     output: "release/${version}",
   },
   files: ["dist", "dist-electron", "build"],
   mac: {
+    publish: ["github"],
     icon: "public/nail-white.png",
     target: ["dmg"],
     artifactName: "${productName}-Mac-${version}-Installer.${ext}",

@@ -1,0 +1,28 @@
+name: Electron App Release Workflow
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-publish:
+    runs-on: windows-2022 # 或选择其他适合你项目的操作系统环境
+    env:
+      GITHUB_TOKEN: ${{ vars.REPO_NOEXPIRATION }}
+      ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.3
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: "18.18.1" # 使用与你的项目兼容的Node.js版本
+
+      - name: Install dependencies and rebuild native modules for Electron
+        run: npm ci
+
+      - name: Publish to GitHub Release using electron-builder
+        run: npm run publish # 这个命令将在本地运行electron-builder的发布流程，包括构建和发布到GitHub
